@@ -45,7 +45,7 @@ function newCustomPage({url, title, name, dialoguePrefix, remoteHTML}) {
 
 document.addEventListener('corru_entered', () => {
     if (page.path == '/local/uncosm/where/')
-        env.uncode.enter = () => { // sorry mods that change this!
+        env.uncode.enter = () => {
             let value = env.uncode.input.value.toLowerCase().replaceAll(".", "").replaceAll("/", "")
 
             if (value.length) {
@@ -60,10 +60,10 @@ document.addEventListener('corru_entered', () => {
                     location.href = `/img/sprites/obesk/larval/larval7.gif`
                 }
 
-                if (swup.cache.exists(`/local/uncosm/${value}/`)) {
+                if (value == "juntorture") {
                     setTimeout(() => {
                         cutscene(false)
-                        moveTo(`/local/uncosm/${value}/`)
+                        moveTo(`somewhere/deep/deep/down`)
                     }, 4000)
                 } else {
                     fetch(`/local/uncosm/${value}/`).then(resp => {
@@ -84,8 +84,32 @@ document.addEventListener('corru_entered', () => {
 
 newCustomPage({
     url: "/somewhere/deep/deep/down",
-    title: "..__ERROR::ERROR::ERROR::ERROR::ERROR::ERROR::ERROR::ERROR::ERROR::ERROR::ERROR::ERROR::ERROR::ERROR",
+    title: "!!__ERROR::ERROR::ERROR::ERROR::ERROR::ERROR::ERROR::ERROR::ERROR::ERROR::ERROR::ERROR::ERROR::ERROR::ERROR::ERROR::ERROR::ERROR::ERROR::ERRO",
     name: "error::unproceerror::error::err",
-    dialoguePrefix: "jun",
-    remoteHTML: "https://tozi-coli.github.io/juntorture/html.html",
+    dialoguePrefix: "junstart",
+    remoteHTML: "https://tozi-coli.github.io/juntorture/start.html",
+})
+
+newCustomPage({
+    url: "/somewhere/deep/deep",
+    title: "!!__ERROR::ERR::UNPROCESSABLEOR::ERROR::ERROR::ERROR::::UNPROCESSABLE::ERROR::ERROR__!!",
+    name: "error::unprocessableerror::unprocessable",
+    dialoguePrefix: "junmiddle",
+    remoteHTML: "https://tozi-coli.github.io/juntorture/middle.html",
+})
+
+newCustomPage({
+    url: "/somewhere/deep",
+    title: "!!__ERROR::UNPROCESSABLE__!",
+    name: "error::unprocessable",
+    dialoguePrefix: "junend",
+    remoteHTML: "https://tozi-coli.github.io/juntorture/end.html",
+})
+
+newCustomPage({
+    url: "/somewhere",
+    title: "..__somewhere__..",
+    name: "somewhere",
+    dialoguePrefix: "junsomewhere",
+    remoteHTML: "https://tozi-coli.github.io/juntorture/somewhere.html",
 })

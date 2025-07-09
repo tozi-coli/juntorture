@@ -1,0 +1,793 @@
+<style>
+
+@import url(/css/stage/beneath.css?1750982119115834580);
+
+#content::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    background: url(/img/textures/fadeinlonghalf.gif), url(/img/textures/corruripple.gif);
+    width: 100%;
+    height: 100%;
+    transform: rotate(180deg);
+    background-size: 150%, auto;
+}
+
+.gridpiece.prop > div {
+    position: absolute;
+    bottom: 0;
+    transform: translateY(-25%) rotateX(-90deg);
+    transform-origin: bottom;
+    width: var(--gridTileSize);
+    height: calc(var(--gridTileSize) * 2);
+    background-size: auto 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    transform-style: preserve-3d;
+    backface-visibility: visible;
+    -webkit-backface-visibility: visible;
+}
+
+#realgrid .prop .bar {
+    width: calc(var(--gridTileSize) * 6.9);
+    height: calc(var(--gridTileSize) * 2);
+    background: transparent;
+    bottom: unset;
+    border-radius: 0 0 100% 100%;
+    top: 0;
+    transform: translateZ(calc(var(--gridTileSize) * 0.4));
+    border: calc(var(--gridTileSize) * 0.5) double var(--friend-color);
+    border-top: 0;
+}
+
+#realgrid .prop .bar::after, #realgrid .prop .bar::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border: inherit;
+    border-radius: inherit;
+    transform: inherit;
+    top: 0;
+}
+
+#realgrid .prop .bar::after {
+    transform: translateZ(calc(var(--gridTileSize) * 0.2));
+}
+
+#realgrid .bar figure {
+    width: calc(var(--gridTileSize) * 7);
+    height: calc(var(--gridTileSize) * 5);
+    position: absolute;
+    transform: rotateX(-90deg) translateZ(calc(var(--gridTileSize) * -0.75)) translateY(-30%);
+    background-image: url(/img/local/embassy/barwarp.gif);
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+#realgrid .bar figure::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 90%;
+    height: 100%;
+    background-image: url(/img/local/embassy/bardrinkswarp.gif);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    --baseTransform: translateZ(50px);
+}
+
+.collapse #realgrid .prop .bar {
+    transform: translateZ(calc(var(--gridTileSize) * 0.4)) rotateY(2deg);
+}
+
+#realgrid .prop .bar::after {
+    transform: translateZ(calc(var(--gridTileSize) * 0.2)) rotateY(3deg);
+}
+
+#realgrid .prop .bar::before {
+    transform: rotateY(4.5deg);
+}
+
+#realgrid .prop .bar::after, #realgrid .prop .bar::before, #realgrid .prop .bar {
+    animation: BARFLICKER 5s linear infinite;
+    animation-delay: unset !important;
+}
+
+@keyframes BARFLICKER {
+    0% { border-color: var(--bright-color) }
+    90% { border-color: var(--dark-color) }
+    96% { border-color: var(--bright-color) }
+    100% { border-color: var(--dark-color) }
+}
+
+body[quality="regular"] #realgrid .bar figure::after {
+    animation: TINYHOVER 7s ease-in-out infinite alternate;
+}
+
+#realgrid .barfriend {
+    transform: translateY(-25%) rotateX(-90deg) translateZ(calc(-1 * var(--gridTileSize)));
+}
+
+.barfriend figure {
+    background-image: url(/img/local/beneath/barfriend.gif);
+    animation: TINYHOVER 5s ease-in-out infinite alternate;
+    width: 100%;
+    height: 100%;
+}
+
+.gridpiece.alwaysvis {
+    opacity: 1 !important;
+}
+
+.gridpiece:empty {
+    background: url(/img/textures/blackstaticSTILL.gif);
+    border: 5px double var(--bright-color);
+}
+
+.sipper .akieffigy::before {
+    display: none;
+}
+
+body[currentdialogue^="bar"] .grid-animator {
+    --camera-x:3.5;
+    --camera-y:2.5;
+    --camera-rotation: 45 !important;
+}
+
+body[currentdialogue^="bar"] #content.barfocus .grid-animator {
+    --camera-x:4;
+    --camera-y:1;
+    --camera-rotation: 0 !important;
+}
+</style>
+
+
+
+		<script id="PageData">
+			content = document.querySelector('#content')
+			body = document.body
+
+			if(typeof page == "object") {
+				oldPage = page
+			}
+
+			// This script is generated per-page based on jekyll front-matter and other inputs. If you're looking at how stuff was done, be prepared for truly terrible whitespace management. It's prettier when I'm working on it, trust me.
+			page = {
+				title: "!!__ERROR::ERROR::ERROR::ERROR::ERROR::ERROR::ERROR::ERROR::ERROR::ERROR::ERROR::ERROR::ERROR::ERROR::ERROR::ERROR::ERROR::ERROR::ERROR::ERRO",
+				name: "error::unproceerror::error::err",
+				dialoguePrefix:  "junstart" ,
+				path: location.pathname,
+				flags: {},
+				howls: [],
+				cacheval: 1750982119115834580,
+
+				
+				image: "/img/socials/where.gif",
+				
+
+				
+
+				
+				bgm: new Howl({
+					onload: function () {page.howls.push(this)},
+					src: ['/audio/television.ogg'],
+					preload: true,
+					loop: true,
+					
+					 rate: 0.9, 
+					sprite: {
+						__default: [50, 81450, true]
+					}
+				}),
+				
+
+				
+				mothComment: ()=>{
+    var moth = "interesting... this is like a little bubble of coherence in the uncosm, i wonder how it's holding together?"
+    
+    if(env.currentDialogue.justChanged) moth = "anything else on your mind?"
+
+    return moth
+}
+,
+				
+
+				
+				
+				onLoaded: ()=>{	
+					document.querySelectorAll('#grid-ref').forEach(e=>e.remove())
+					body.setAttribute('page', page.name)
+					content.setAttribute('page', page.name)
+					document.querySelector('#static .enter').setAttribute('page', page.title)
+					document.scrollingElement.scrollTop = 0
+					
+
+					updatePreferenceAttributes()
+					
+					// global defs
+					
+					
+					
+						
+						
+							env.definitions[`θjut`] = `'engineer';'caste'`;
+						
+					
+						
+						
+							env.definitions[`vel`] = `'caste';'partial meaning loss due to damaged context'`;
+						
+					
+						
+						
+							env.definitions[`tir`] = `'caste';'partial meaning loss due to damaged context'`;
+						
+					
+						
+						
+							env.definitions[`kiv`] = `'caste';'partial meaning loss due to damaged context'`;
+						
+					
+						
+						
+							env.definitions[`qou`] = `'caste';'partial meaning loss due to damaged context'`;
+						
+					
+						
+						
+							env.definitions[`velzie`] = `'god'`;
+						
+					
+						
+						
+							env.definitions[`veilk`] = `'surface fauna';'foundation of entire ecosystem';'enormous and endless'`;
+						
+					
+						
+						
+							env.definitions[`ukazni ozo`] = `'surface city';'mountainous fortress';'origin of dull pulse weaponry'`;
+						
+					
+						
+						
+							env.definitions[`secri`] = `'predator';'infection';'primal terror'`;
+						
+					
+						
+						
+							env.definitions[`zuzucri`] = `'violent parasitic surface fauna';'hijacks mind of victim for use as social camouflage';'ekivik profanity'`;
+						
+					
+						
+						
+							
+							
+							env.definitions[`golem`] = { type: `NOTE`, text: `'partial translation';'implied closest cultural equivalent'`};
+						
+					
+						
+						
+							
+							
+							env.definitions[`golems`] = { type: `NOTE`, text: `'partial translation';'implied closest cultural equivalent'`};
+						
+					
+						
+						
+							env.definitions[`velzie's stage`] = `'all that can be observed';'physical reality';'religious term now used scientifically';'partial translation';'inherited description-generated noun'`;
+						
+					
+						
+						
+							env.definitions[`θeye`] = `'time period';'patrols around the eye of velzie';'religious implication'`;
+						
+					
+						
+						
+							env.definitions[`θeyes`] = `'time period';'patrols around the eye of velzie';'religious implication'`;
+						
+					
+						
+						
+							env.definitions[`θgazes`] = `'time period';'numerous within eyes'`;
+						
+					
+						
+						
+							env.definitions[`θgaze`] = `'time period';'numerous within eyes'`;
+						
+					
+						
+						
+							env.definitions[`θwinks`] = `'time period';'numerous within gazes'`;
+						
+					
+						
+						
+							env.definitions[`θwink`] = `'time period';'numerous within gazes'`;
+						
+					
+						
+						
+							env.definitions[`θblinks`] = `'time period';'numerous within winks'`;
+						
+					
+						
+						
+							env.definitions[`θblink`] = `'time period';'numerous within winks'`;
+						
+					
+						
+						
+							
+							
+							env.definitions[`uncosm`] = { type: `NOTE`, text: `'reconstructive translation';'implies non-world'`};
+						
+					
+						
+						
+							env.definitions[`jokzi ozo`] = `'home';'fortress upon jokzi'`;
+						
+					
+						
+						
+							
+							
+							env.definitions[`θdeath`] = { type: `NOTE`, text: `'implies altered living state'`};
+						
+					
+						
+						
+							
+							
+							env.definitions[`θdeaths`] = { type: `NOTE`, text: `'implies altered living state'`};
+						
+					
+						
+						
+							
+							
+							env.definitions[`θdeathly`] = { type: `NOTE`, text: `'implies altered living state'`};
+						
+					
+						
+						
+							
+							
+							env.definitions[`fairy`] = { type: `NOTE`, text: `'partial translation';'implied closest cultural equivalent'`};
+						
+					
+					
+					// definitions required for page
+					
+					
+					//dynamically inserted
+					
+					createEntity({
+    name: 'effigy',
+    hide: true,
+    type: "thoughtform portrait-bright portrait-cover",
+    image: "/img/local/uncosm/ozo/akieffigy_portrait.gif",
+    text: `::INCOMPLETE THOUGHTFORM
+    ::EXPLICIT PURPOSE::'stupidity'
+    <span style="color: var(--obesk-color)" definition="ANALYSIS::'no cohesion';'malformed entity';'potential tampering'">::INCOHERENCE DETECTED</span>
+    ::INHERITED CONTEXT::<span style='color: var(--bright-color)'>'isabeFFFFFFFFFFFFFFFFFFFFFl!'</span>`,
+
+    exmExec: ()=>{
+
+            chatter({actor: 'moth', text: "this is so weird... i think", readout: true, delay: 3000})
+            chatter({actor: 'moth', text: "what happened to it", readout: true, delay: 7000})
+
+    },
+    
+    actions: [
+        {
+            name: "greet",
+            exec: ()=>{
+                startDialogue("bar")
+            }
+        },
+        
+        {
+            name: "unitmy",
+            class: "act-ozo",
+            showIf: [["mask", "unity"]],
+            exec: ()=>{
+                let effigy = env.targetedEntityParent
+                cutscene(true)
+
+                chatter({actor: 'effigy', text: `jokzi... jokzi ozo!!`, readout: true, customEl: effigy, delay: 2000})
+                chatter({actor: 'effigy', text: `that's right! i have a home!!`, readout: true, delay: 4000})
+                chatter({actor: 'effigy', text: `ok this was nice but i gotta go barfriend`, readout: true, delay: 7000})
+                chatter({actor: 'effigy', text: `i'll take another one for the journey!`, readout: true, delay: 9000})
+
+                env.setTimeout(()=>{
+                    play("talkchoir", 0.75)
+                    vfx({type: 'beacon', state: true})
+                }, 400)
+                
+                env.setTimeout(()=>{
+                    vfx({type: 'flash', state: true})
+                    readoutAdd({message: `<p>ATTENTION::'thoughtform activity detected'::'resources removed'</p>`, name:"sys"})
+                    setTimeout(()=>play('dull', 1), 400)
+                }, 11000)
+
+                setTimeout(()=>{
+                    vfx({type: 'beacon', state: false})
+                    vfx({type: 'flash', state: false})
+
+                    change('effigy_sipper', true)
+                    document.querySelectorAll('.gridpiece[slug="ü"]').forEach(el=>{
+                        el.innerHTML = ""
+                        el.classList.remove('dyp')
+                    })
+                    cutscene(false)
+                    ratween(env.bgm, 0.2)
+                }, 13000)
+            },
+        }
+    ]
+})
+
+env.stages['bar'] = {
+    width: 9,
+    fogRadius: 5,
+    fogAlgorithm: "half",
+    enterDirection: "down",
+
+    exec: ()=>{
+        document.querySelectorAll(".raised-floaty").forEach((e) => e.style.animationDelay = `${-1 * rand(1, 20)}s`);
+        
+        
+        if(check("effigy_sipper")) {
+            document.querySelectorAll('.gridpiece[slug="ü"]').forEach(el=>{
+                el.innerHTML = ""
+                el.classList.remove('dyp')
+            })
+        }
+    },
+
+    entities: {
+        "_": {
+            class: "gap blocks",
+        },
+
+        "=": {
+            class: "gap blocks raised-floaty",
+        },
+
+        "░": {
+            class: "alwaysvis"
+        },
+
+        "B": {
+            class: "prop blocks alwaysvis",
+            contains: {
+                class: "bar",
+                html: `<figure></figure>`,
+            }
+        },
+
+        "f": {
+            class:"prop blocks alwaysvis",
+            contains: {
+                id: "barfriend",
+                class: "barfriend character collapser",
+                html: `<figure></figure>`
+            }
+        },
+
+        "ü": {
+            class: "critical alwaysvis",
+            contains: {
+                dyp: {
+                    class: "sipper",
+                    width: 1.5,
+                    height: 2,
+                    image: 'transparent',
+                    transform: 'rotateY(45deg)'
+                },
+
+                html: `
+                    <figure class="ozofriend akieffigy" type="sipper">
+                        <div class="target" entity="effigy"></div>
+                        <img class="body" src="/img/local/uncosm/ozo/akieffigy_body2.gif">
+                        <img class="head" src="/img/local/uncosm/ozo/akieffigy_head2.gif">
+                    </figure>
+                `
+            } 
+        },
+    },
+
+    plan: `
+        ░...B...=
+        =...f...=
+        =__ü░░__=
+        ==_░░░_==
+        ==_░░░░_=
+        =_░░░░_=_
+        =_░░░░_==
+        ==_░░░░░=
+        ====p_=░=
+        =====░░░=
+        =========
+    `
+}
+
+env.dialogues["dead"] = generateDialogueObject(`
+start
+    sys
+        ERROR::'no data';'unable to render'
+    
+____SHOWONCE::
+    moth
+        wait
+        why would this have stopped existing just because that effigy thing left?
+        that's weird
+____END
+
+    RESPONSES::self
+        return<+>END
+            EXEC::moveTo('/local/uncosm/where/')
+`)
+
+env.dialogues.drinkquestions = generateDialogueObject(`
+RESPOBJ::
+    RESPONSES::self
+        who are you?<+>who
+        how did you get here?<+>here
+        can i have a drink<+>drink
+        jokzi ozo<+>ozo
+            SHOWIF::"ozo__council-task"
+        bye<+>END
+`)
+
+env.dialogues["bar"] = generateDialogueObject(`
+loop
+    RESPOBJ::drinkquestions
+
+start
+    self
+        hello
+
+    sourceless
+        the thoughtform's attention fixes upon your mind's eye with unusual clarity
+
+    effigy
+        hiii!
+
+    RESPOBJ::drinkquestions
+
+who
+    self
+        who are you?
+    
+    effigy
+        ummmmm
+        ...
+        ummmmmmm
+        .....
+        akizet! right!
+        yes
+        akizet
+    
+    RESPONSES::self
+        ok<+>loop
+            FAKEEND::(back)
+
+here
+    self
+        how did you get here?
+    
+    effigy
+        the ground fell and then i got really sick
+        it felt horrible... 
+        i wanted to go back to dreaming
+        but something in the dark caught me!
+        and it put me here! 
+        i even watched it put it together!
+        cool!
+    
+    self
+        ok what was it though
+        can you give me more details
+    
+    effigy
+        sorry i forgot
+        so easy to forget here...
+    
+    RESPONSES::self
+        darn<+>loop
+            FAKEEND::(back)
+
+drink
+    self
+        can i have a drink
+    
+    effigy
+        yes!!
+        it's all orange juice! forever!
+        cool!
+        just ask the barfriend!
+
+    sourceless quiet
+        ...
+            EXEC::content.classList.add('barfocus')
+        ...
+    
+    sourceless
+        the thoughtform behind the bar is unresponsive
+    
+    RESPONSES::self
+        thanks...<+>loop
+            EXEC::content.classList.remove('barfocus')
+            FAKEEND::(back)
+
+ozo
+    self
+        you should go to jokzi ozo
+    
+    effigy
+        ok!
+    
+    sourceless
+        ...
+        ...
+    
+    effigy
+        how do i go there please
+    
+    self
+        hold on
+    
+    RESPONSES::self
+        i need to use the mask action<+>loop
+            FAKEEND::(back)
+`)
+
+
+					
+
+					
+						document.querySelector('body').classList.remove('nomoth')
+					
+
+					if(firstLoad || env.waitOnLoad) {
+						if(!env.loading) body.classList.remove("loading") //this is otherwise handled in the loadResources function
+						body.setAttribute('state', 'corru-loaded')
+					} else {
+						page.onEnter()
+						if(oldPage.bgm) oldPage.bgm.unload() //unloads the old page music to save memory
+					}
+
+					console.log('rendering buddies!')
+					Buddy.renderGlobalBuddies()
+					document.dispatchEvent(env.hooks.corru_loaded)
+				},
+
+				onEnter: ()=>{
+					if(!page.dialoguePrefix.includes("notfound")) {
+						change(`visited_${location.pathname.replace(/\//g, '')}`, true)
+					}
+					
+					//global VN object update
+					page.vn = new VN()
+					window.vnObj = page.vn
+
+					
+					readoutAdd({message: `..__NAVIGATING::"${page.name}"__..`, name:"sys", actor: "sys", type: "navigation", show: false, sfx: false})
+					
+					
+					body.setAttribute('state', 'corru-entered')
+					firstLoad = false
+
+					
+					if(corruStatic.playing() && !body.classList.contains("hard-cut")) {
+						corruStatic.fade(corruStatic.volume(), 0, 1000)
+						setTimeout(()=> corruStatic.stop(), 1001)
+					}
+					if(page.bgm) {
+						page.bgm.volume(0)
+						page.bgm.play()
+						page.bgm.fade(0, getModifiedVolume('music', 1), 1000)
+						env.bgm = page.bgm
+					} else {
+						env.bgm = null
+					}
+					
+
+					//dyn
+					
+					if(check("effigy_sipper")) {
+    env.bgm.rate(0.2)
+    startDialogue("dead")
+} else {
+    changeStage("bar")
+}
+document.addEventListener('keydown', stageKeypress)
+
+					Buddy.triggerPageBuddies()
+					document.querySelector('#PageData').remove()
+					document.dispatchEvent(env.hooks.corru_entered)
+					mothHasUnreadCheck()
+
+					setTimeout(()=>{
+						if(oldPage) if(oldPage.howls) oldPage.howls.forEach(howl=>howl.unload())
+					}, 400)
+				},
+
+				onLeaving: (dest = false)=>{
+					body.setAttribute('state', 'corru-leaving')
+					MUI("off")
+					env.waitOnLoad = false
+
+					if(env.bgm){
+						let oldbgm = env.bgm
+						env.bgm = null
+						if(oldbgm.playing()) {
+							oldbgm.fade(oldbgm.volume(), 0, 1000)
+							setTimeout(()=> oldbgm.stop(), 1001)
+						}
+					}
+
+					if(!body.classList.contains("hard-cut")) {
+						corruStatic.volume(0)
+						corruStatic.play()
+						corruStatic.fade(0, env.corruStaticBaseVol, 1000)
+					}
+
+					//dyn
+					
+					stageCleanup()
+
+            		change('TEMP!!sat', true)
+					Buddy.cleanPageBuddies({removeEl: false})
+					document.dispatchEvent(env.hooks.corru_leaving)
+
+					if(dest) swup.loadPage({url: dest})
+					delete page.vn
+				}
+			}
+
+			
+
+			env.pageName = "unknown";
+			env.pagePath = location.pathname;
+		</script>
+	</div>
+
+	<!-- i got my eye on you -->
+	<script data-goatcounter="https://corru.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+
+	<script id="cryptocraze">
+	if(document.referrer.includes("/t.co/")) { 
+		document.body.insertAdjacentHTML("afterbegin", `<div class="cryptowarn">
+			<span>hi, corru is unaffiliated with any crypto stuff. if a crypto twitter account claimed this is their work, report them. they're trying to scam you! the only real corru account is "corruworks"</span>
+			<span>(if not - sorry for the spooky non-diegetic message! it's a long story... I hope you enjoy my work!)</span>
+		</div>
+
+		<style>
+			.cryptowarn { display: none; }
+			body[state="corru-loaded"] .cryptowarn {
+			position: absolute;
+			z-index: 20000;
+			background: blue;
+			padding: 0.5em;
+			max-width: 50vw;
+			bottom: 0;
+			right: 0;
+			display: flex;
+			flex-direction: column;
+			gap: 1em;
+			font-size: 14px;
+			}
+		</style>`)
+	}
+	cryptocraze.remove()
+	</script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"95c80ae1596d508e","version":"2025.6.2","r":1,"token":"d27fafd650894988a053584cfbc6883c","serverTiming":{"name":{"cfExtPri":true,"cfEdge":true,"cfOrigin":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}}}' crossorigin="anonymous"></script>
+</body>
+</html>
