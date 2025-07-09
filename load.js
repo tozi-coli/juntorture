@@ -63,7 +63,7 @@ document.addEventListener('corru_entered', () => {
                 if (value == "juntorture") {
                     setTimeout(() => {
                         cutscene(false)
-                        moveTo(`somewhere/deep/deep/down`)
+                        moveTo(`/somewhere/deep/deep/down`)
                     }, 4000)
                 } else {
                     fetch(`/local/uncosm/${value}/`).then(resp => {
