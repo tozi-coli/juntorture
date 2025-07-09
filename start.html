@@ -518,22 +518,6 @@ env.stages['bar'] = {
     `
 }
 
-env.dialogues["dead"] = generateDialogueObject(`
-start
-    sys
-        ERROR::'no data';'unable to render'
-    
-____SHOWONCE::
-    moth
-        wait
-        why would this have stopped existing just because that effigy thing left?
-        that's weird
-____END
-
-    RESPONSES::self
-        return<+>END
-            EXEC::moveTo('/local/uncosm/where/')
-`)
 
 env.dialogues.drinkquestions = generateDialogueObject(`
 RESPOBJ::
@@ -702,12 +686,8 @@ ozo
 
 					//dyn
 					
-					if(check("effigy_sipper")) {
-    env.bgm.rate(0.2)
-    startDialogue("dead")
-} else {
     changeStage("bar")
-}
+
 document.addEventListener('keydown', stageKeypress)
 
 					Buddy.triggerPageBuddies()
